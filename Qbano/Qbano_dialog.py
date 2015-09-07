@@ -24,8 +24,8 @@
 import os
 import logging
 import json
-import urllib2
 import urllib
+import urllib2
 import codecs
 import unicodedata
 
@@ -35,6 +35,7 @@ from qgis.core import *
 
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
+
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'Qbano_dialog_base.ui'))
@@ -119,7 +120,8 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
 		    coordonnees["type"] = 'empty'
 		    if i.attribute(champadresse) is not None and i.attribute(champadresse) and isinstance(i.attribute(champadresse), unicode) :
 			coordonnees = self.coordonnees(i.attribute(champadresse))
-		    
+		    if coordonnees =={}:
+		      break
 		    #self.deboguer("2")
 		    # self.deboguer(coordonnees)
                     fet = QgsFeature()
@@ -142,19 +144,26 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
 		QgsMapLayerRegistry.instance().addMapLayer(vl)     
 
     def coordonnees(self,adresse):
-        param = {'wt':'json','rows':2,'fl':'score,*'}
-        param['q']=unicodedata.normalize('NFD',adresse).encode('ascii','ignore')
-        url = urllib.urlencode(param)
-        donnee = urllib2.urlopen('http://api-adresse.data.gouv.fr/search/?q=' + url+'&limit=1')
-        # self.deboguer(donnee)
-        data = json.load(donnee)
-        self.deboguer(data)
-        retour = {}
-        if len(data['features']) > 0 :
+
+	try:
+	  param = {'wt':'json','rows':2,'fl':'score,*'}
+	  param['q']=unicodedata.normalize('NFD',adresse).encode('ascii','ignore')
+	  url = urllib.urlencode(param)
+	  donnee = urllib2.urlopen('http://api-adresse.data.gouv.fr/search/?q=' + url+'&limit=1')
+	  # self.deboguer(donnee)
+	  data = json.load(donnee)
+	  self.deboguer(data)
+	  retour = {}
+	  if len(data['features']) > 0 :
             retour["adresse"] = data['features'][0]['properties']['label']
             retour["lon"] = data['features'][0]['geometry']['coordinates'][0]
             retour["lat"] = data['features'][0]['geometry']['coordinates'][1]
             retour["score"] = data['features'][0]['properties']['score']
             retour["type"] = data['features'][0]['properties']['type']
-        return retour
-
+	except  urllib2.HTTPError as e:
+	    QMessageBox.critical(self, QtGui.QApplication.translate("QBAN(O)", "QBAN(O)"), QtGui.QApplication.translate("Internetconnexionerror", "Internet connexion error"), QMessageBox.Ok)
+	    retour = {}
+	except  urllib2.URLError as e:
+	    QMessageBox.critical(self, QtGui.QApplication.translate("QBAN(O)", "QBAN(O)"), QtGui.QApplication.translate("Internetconnexionerror", "Internet connexion error"), QMessageBox.Ok)
+	    retour = {}
+	return retour

@@ -6,50 +6,65 @@
     <message>
         <location filename="test_translations.py" line="48"/>
         <source>Good morning</source>
-        <translatorcomment>Bonjour</translatorcomment>
         <translation>Bonjour</translation>
+    </message>
+</context>
+<context>
+    <name>Internetconnexionerror</name>
+    <message>
+        <location filename="Qbano_dialog.py" line="168"/>
+        <source>Internet connexion error</source>
+        <translatorcomment>Erreur de connection internet</translatorcomment>
+        <translation>Erreur de connection internet</translation>
+    </message>
+</context>
+<context>
+    <name>QBAN(O)</name>
+    <message>
+        <location filename="Qbano_dialog.py" line="168"/>
+        <source>QBAN(O)</source>
+        <translation>QBAN(O)</translation>
     </message>
 </context>
 <context>
     <name>Qbano</name>
     <message>
         <location filename="Qbano.py" line="175"/>
-        <source>&amp;Qbano</source>
-        <translatorcomment>Qbano</translatorcomment>
-        <translation>Qbano</translation>
+        <source>&amp;QBAN(O)</source>
+        <translation>QBAN(O)</translation>
     </message>
     <message>
         <location filename="Qbano.py" line="165"/>
-        <source>Qbano</source>
-        <translation>Qbano</translation>
+        <source>QBAN(O)</source>
+        <translation>QBAN(O)</translation>
     </message>
 </context>
 <context>
     <name>QbanoDialogBase</name>
-    <message>
-        <location filename="Qbano_dialog_base.ui" line="14"/>
-        <source>Qbano</source>
-        <translation>Qbano</translation>
-    </message>
     <message>
         <location filename="Qbano_dialog_base.ui" line="52"/>
         <source>Layer to Geocode</source>
         <translation>Couche à géocoder</translation>
     </message>
     <message>
-        <location filename="Qbano_dialog_base.ui" line="65"/>
+        <location filename="Qbano_dialog_base.ui" line="68"/>
         <source>Load Project layers</source>
         <translation>Lecture des couches du projet</translation>
     </message>
     <message>
-        <location filename="Qbano_dialog_base.ui" line="88"/>
+        <location filename="Qbano_dialog_base.ui" line="91"/>
         <source>Address field</source>
         <translation>Champ d&apos;adresse</translation>
     </message>
     <message>
-        <location filename="Qbano_dialog_base.ui" line="101"/>
+        <location filename="Qbano_dialog_base.ui" line="107"/>
         <source>Geocode</source>
         <translation>Géocoder</translation>
+    </message>
+    <message>
+        <location filename="Qbano_dialog_base.ui" line="14"/>
+        <source>QBAN(O)</source>
+        <translation>QBAN(O)</translation>
     </message>
 </context>
 </TS>
