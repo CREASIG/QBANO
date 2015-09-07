@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>GeoLocalisationDialogBase</class>
- <widget class="QDialog" name="GeoLocalisationDialogBase">
+ <class>QbanoDialogBase</class>
+ <widget class="QDialog" name="QbanoDialogBase">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>GeoLocalisation</string>
+   <string>QBAN(O)</string>
   </property>
   <widget class="QDialogButtonBox" name="button_box">
    <property name="geometry">
@@ -126,7 +126,7 @@
   <connection>
    <sender>button_box</sender>
    <signal>accepted()</signal>
-   <receiver>GeoLocalisationDialogBase</receiver>
+   <receiver>QbanoDialogBase</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -142,7 +142,7 @@
   <connection>
    <sender>button_box</sender>
    <signal>rejected()</signal>
-   <receiver>GeoLocalisationDialogBase</receiver>
+   <receiver>QbanoDialogBase</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -158,7 +158,7 @@
   <connection>
    <sender>_charger</sender>
    <signal>clicked()</signal>
-   <receiver>GeoLocalisationDialogBase</receiver>
+   <receiver>QbanoDialogBase</receiver>
    <slot>chercherCouches()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -174,7 +174,7 @@
   <connection>
    <sender>_listecouches</sender>
    <signal>currentIndexChanged(QString)</signal>
-   <receiver>GeoLocalisationDialogBase</receiver>
+   <receiver>QbanoDialogBase</receiver>
    <slot>remplirChampAdresse()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -190,7 +190,7 @@
   <connection>
    <sender>_geocoder</sender>
    <signal>clicked()</signal>
-   <receiver>GeoLocalisationDialogBase</receiver>
+   <receiver>QbanoDialogBase</receiver>
    <slot>geocoder()</slot>
    <hints>
     <hint type="sourcelabel">

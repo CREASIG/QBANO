@@ -92,6 +92,7 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
 			titre.append( QgsField(layer.attributeDisplayName(att), QVariant.String))
 		titre.append( QgsField("adresse_trouvee", QVariant.String))
 		titre.append( QgsField("score", QVariant.String))
+		titre.append( QgsField("type", QVariant.String))
 		pr.addAttributes(titre);
 		vl.commitChanges()
                 self._progression.setMinimum(0)
@@ -110,7 +111,15 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
 		    self._progression.setValue(j)
 		    QtGui.qApp.processEvents()
 		    # self.deboguer("1")
-                    coordonnees = self.coordonnees(i.attribute(champadresse))
+		    coordonnees={}
+		    coordonnees["adresse"] = ''
+		    coordonnees["lon"] = 0
+		    coordonnees["lat"] = 0
+		    coordonnees["score"] = 0
+		    coordonnees["type"] = 'empty'
+		    if i.attribute(champadresse) is not None and i.attribute(champadresse) and isinstance(i.attribute(champadresse), unicode) :
+			coordonnees = self.coordonnees(i.attribute(champadresse))
+		    
 		    #self.deboguer("2")
 		    # self.deboguer(coordonnees)
                     fet = QgsFeature()
@@ -123,6 +132,7 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
 		    if coordonnees != {}:
 			attributs.append(coordonnees['adresse'])
 			attributs.append(str(coordonnees['score']))
+			attributs.append(str(coordonnees['type']))
 		    fet.setAttributes(attributs)
 		    pr.addFeatures( [ fet ] )
 		# Commit changes
@@ -145,5 +155,6 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
             retour["lon"] = data['features'][0]['geometry']['coordinates'][0]
             retour["lat"] = data['features'][0]['geometry']['coordinates'][1]
             retour["score"] = data['features'][0]['properties']['score']
+            retour["type"] = data['features'][0]['properties']['type']
         return retour
 

@@ -63,10 +63,10 @@ class Qbano:
 
         # Declare instance attributes
         self.actions = []
-        self.menu = self.tr(u'&GeoLocalisation')
+        self.menu = self.tr(u'&QBAN(O)')
         # TODO: We are going to let the user set this up in a future iteration
-        self.toolbar = self.iface.addToolBar(u'GeoLocalisation')
-        self.toolbar.setObjectName(u'GeoLocalisation')
+        self.toolbar = self.iface.addToolBar(u'QBAN(O)')
+        self.toolbar.setObjectName(u'QBAN(O)')
 
 
     # noinspection PyMethodMayBeStatic
@@ -82,7 +82,7 @@ class Qbano:
         :rtype: QString
         """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
-        return QCoreApplication.translate('GeoLocalisation', message)
+        return QCoreApplication.translate('QBAN(O)', message)
 
 
     def add_action(
@@ -164,7 +164,7 @@ class Qbano:
         icon_path = ':/plugins/QBANO/icon.png'
         self.add_action(
             icon_path,
-            text=self.tr(u'GeoLocalisation'),
+            text=self.tr(u'QBAN(O)'),
             callback=self.run,
             parent=self.iface.mainWindow())
 
@@ -173,7 +173,7 @@ class Qbano:
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
             self.iface.removePluginMenu(
-                self.tr(u'&GeoLocalisation'),
+                self.tr(u'&QBAN(O)'),
                 action)
             self.iface.removeToolBarIcon(action)
         # remove the toolbar

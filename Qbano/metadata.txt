@@ -10,7 +10,7 @@
 name=QBAN(O)
 qgisMinimumVersion=2.0
 description=QBAN(O)
-version=0.1
+version=0.3
 author=CREASIG
 email=eric@creasig.fr
 
