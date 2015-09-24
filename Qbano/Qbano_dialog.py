@@ -126,7 +126,8 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
                         adresse_complete.replace("."," ")
                         adresse_complete.replace(","," ")
                         adresse_complete.replace(":"," ")
-                        coordonnees = self.coordonnees(i.attribute(champadresse))
+                        adresse_complete.replace(";"," ")
+                        coordonnees = self.coordonnees(adresse_complete)
                     if coordonnees =={}:
                         break
                     #self.deboguer("2")
