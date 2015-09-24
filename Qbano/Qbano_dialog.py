@@ -119,6 +119,13 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
                     coordonnees["score"] = 0
                     coordonnees["type"] = 'empty'
                     if i.attribute(champadresse) is not None and i.attribute(champadresse) and isinstance(i.attribute(champadresse), unicode) :
+                        adresse_complete = i.attribute(champadresse)
+                        adresse_complete.replace("\""," ")
+                        adresse_complete.replace("'"," ")
+                        adresse_complete.replace("\\"," ")
+                        adresse_complete.replace("."," ")
+                        adresse_complete.replace(","," ")
+                        adresse_complete.replace(":"," ")
                         coordonnees = self.coordonnees(i.attribute(champadresse))
                     if coordonnees =={}:
                         break
