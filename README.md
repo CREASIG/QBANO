@@ -4,6 +4,10 @@ QBAN(O) permet de géolocaliser vos adresses issues d'un fichier excel ou CSV. I
 
 Le fichier des adresses doit être ouvert dans Qgis. L'adresse doit être contenue dans une seule colonne (numero, rue, code postal, ville). Une fois la géolocalisation effectuée, une colonne "score" permet de connaitre la fiabilité de l'adresse, 1 étant la meilleure note (à partir de 0,5, la localisation est fiable).
 
+V 1.1 - Suppression automatique des guillemets, virgule, point virgule point et double point dans le champ adresse.
+
+V 1.0 - Modification de la requête auprès de l'API BAN.
+
 V 0.3 – Ajout de la colonne de la précision de l’adresse (colonne type); Indication lorsque la connexion internet n'existe pas; Pas de message d'erreur quand le champ adresse est vide, tout le traitement est effectué.
 
 V 0.2 –  Ajout de la colonne score.
