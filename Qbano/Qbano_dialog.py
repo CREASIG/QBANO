@@ -59,6 +59,7 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
             #if layer.geometryType() == QGis.NoGeometry :
             self._listecouches.addItem(name)
 
+
     def remplirChampAdresse(self, valeur):
         self._champadresse.clear()
         layers = QgsMapLayerRegistry.instance().mapLayers()
