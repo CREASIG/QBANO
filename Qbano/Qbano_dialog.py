@@ -131,10 +131,6 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
                         adresse_complete.replace(";"," ")
                         self.deboguer(adresse_complete)
                         coordonnees = self.coordonnees(adresse_complete)
-                    if coordonnees =={}:
-                        break
-                    #self.deboguer("2")
-                    # self.deboguer(coordonnees)
                     fet = QgsFeature()
                     if coordonnees != {}:
                         fet.setGeometry( QgsGeometry.fromPoint(QgsPoint(coordonnees['lon'],coordonnees['lat']))) 
