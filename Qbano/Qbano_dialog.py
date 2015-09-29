@@ -70,9 +70,9 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
                         self._champadresse.addItem(field.name())
 
     def deboguer(self, texte):
-        logging.basicConfig(filename='myapp.log', level=logging.INFO)
-        logging.info(texte)
-        #pass
+        #logging.basicConfig(filename='myapp.log', level=logging.INFO)
+        #logging.info(texte)
+        pass
       
 
     def geocoder(self):
