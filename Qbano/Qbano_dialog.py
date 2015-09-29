@@ -162,7 +162,6 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
             param['q']=unicodedata.normalize('NFD',adresse).encode('ascii','ignore')
             url = urllib.urlencode(param)
             donnee = urllib2.urlopen('http://api-adresse.data.gouv.fr/search/?' + url+'&limit=1')
-            #print( donnee)
             # self.deboguer(donnee)
             data = json.load(donnee)
             # self.deboguer(data)
