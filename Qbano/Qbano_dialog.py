@@ -70,9 +70,9 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
                         self._champadresse.addItem(field.name())
 
     def deboguer(self, texte):
-        #logging.basicConfig(filename='myapp.log', level=logging.INFO)
-        #logging.info(texte)
-        pass
+        logging.basicConfig(filename='myapp.log', level=logging.INFO)
+        logging.info(texte)
+        #pass
       
 
     def geocoder(self):
@@ -112,7 +112,7 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
                     self.deboguer(j)
                     self._progression.setValue(j)
                     QtGui.qApp.processEvents()
-                    # self.deboguer("1")
+                    self.deboguer("1")
                     coordonnees={}
                     coordonnees["adresse"] = ''
                     coordonnees["lon"] = 0
@@ -120,6 +120,7 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
                     coordonnees["score"] = 0
                     coordonnees["type"] = 'empty'
                     if i.attribute(champadresse) is not None and i.attribute(champadresse) and isinstance(i.attribute(champadresse), unicode) :
+                        self.deboguer(i.attribute(champadresse))
                         adresse_complete = i.attribute(champadresse)
                         adresse_complete.replace("\""," ")
                         adresse_complete.replace("'"," ")
@@ -128,6 +129,7 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
                         adresse_complete.replace(","," ")
                         adresse_complete.replace(":"," ")
                         adresse_complete.replace(";"," ")
+                        self.deboguer(adresse_complete)
                         coordonnees = self.coordonnees(adresse_complete)
                     if coordonnees =={}:
                         break
@@ -160,10 +162,10 @@ class QbanoDialog(QtGui.QDialog, FORM_CLASS):
             param['q']=unicodedata.normalize('NFD',adresse).encode('ascii','ignore')
             url = urllib.urlencode(param)
             donnee = urllib2.urlopen('http://api-adresse.data.gouv.fr/search/?' + url+'&limit=1')
-            print( donnee)
+            #print( donnee)
             # self.deboguer(donnee)
             data = json.load(donnee)
-            self.deboguer(data)
+            # self.deboguer(data)
             if len(data['features']) > 0 :
                 retour["adresse"] = data['features'][0]['properties']['label']
                 retour["lon"] = data['features'][0]['geometry']['coordinates'][0]
