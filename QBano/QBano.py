@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- Qbano
+ QBano
                                  A QGIS plugin
- Qbano
+ QBano
                               -------------------
         begin                : 2015-07-08
         git sha              : $Format:%H$
@@ -25,11 +25,11 @@ from PyQt4.QtGui import QAction, QIcon
 # Initialize Qt resources from file resources.py
 import resources_rc
 # Import the code for the dialog
-from Qbano_dialog import QbanoDialog
+from QBano.QBano_dialog import QBanoDialog
 import os.path
 
 
-class Qbano:
+class QBano:
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface):
@@ -59,7 +59,7 @@ class Qbano:
                 QCoreApplication.installTranslator(self.translator)
 
         # Create the dialog (after translation) and keep reference
-        self.dlg = QbanoDialog()
+        self.dlg = QBanoDialog()
 
         # Declare instance attributes
         self.actions = []

@@ -38,17 +38,17 @@ LOCALES = fr
 # translation
 SOURCES = \
 	__init__.py \
-	Qbano.py \
-	Qbano_dialog.py
+	QBano.py \
+	QBano_dialog.py
 
-PLUGINNAME = Qbano
+PLUGINNAME = QBano
 
 PY_FILES = \
-	Qbano.py \
-	Qbano_dialog.py \
+	QBano.py \
+	QBano_dialog.py \
 	__init__.py
 
-UI_FILES = Qbano_dialog_base.ui
+UI_FILES = QBano_dialog_base.ui
 
 EXTRAS = icon.png metadata.txt
 

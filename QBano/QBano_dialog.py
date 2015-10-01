@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- QbanoDialog
+ QBanoDialog
                                  A QGIS plugin
- Qbano
+ QBano
                              -------------------
         begin                : 2015-07-09
         git sha              : $Format:%H$
@@ -38,13 +38,13 @@ from PyQt4.QtCore import *
 
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'Qbano_dialog_base.ui'))
+    os.path.dirname(__file__), 'QBano_dialog_base.ui'))
 
-class QbanoDialog(QtGui.QDialog, FORM_CLASS):
+class QBanoDialog(QtGui.QDialog, FORM_CLASS):
 
     def __init__(self, parent=None):
         """Constructor."""
-        super(QbanoDialog, self).__init__(parent)
+        super(QBanoDialog, self).__init__(parent)
         # Set up the user interface from Designer.
         # After setupUI you can access any designer object by doing
         # self.<objectname>, and you can use autoconnect slots - see

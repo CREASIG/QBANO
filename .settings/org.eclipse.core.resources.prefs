@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
-encoding//Qbano/Qbano.py=utf-8
-encoding//Qbano/Qbano_dialog.py=utf-8
+encoding//QBano/QBano.py=utf-8
+encoding//QBano/QBano_dialog.py=utf-8
+encoding//QBano/__init__.py=utf-8
+encoding//QBano/plugin_upload.py=utf-8

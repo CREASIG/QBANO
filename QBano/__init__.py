@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- GeoLocalisation
+ QBano
                                  A QGIS plugin
- GeoLocalisation
+ QBano
                              -------------------
         begin                : 2015-07-09
         copyright            : (C) 2015 by CREASIG
@@ -25,11 +25,11 @@
 
 # noinspection PyPep8Naming
 def classFactory(iface):  # pylint: disable=invalid-name
-    """Load Qbano class from file Qbano.
+    """Load QBano class from file QBano.
 
     :param iface: A QGIS interface instance.
     :type iface: QgsInterface
     """
     #
-    from .Qbano import Qbano
-    return Qbano(iface)
+    from QBano import QBano
+    return QBano(iface)
