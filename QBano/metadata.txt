@@ -9,10 +9,11 @@
 [general]
 name=QBAN(O)
 qgisMinimumVersion=2.0
-description=QBAN(O)
+description=QBAN(O) permet de géolocaliser vos adresses issues d'un fichier excel ou CSV. Il se sert de la base BAN (Base Adresse Nationale).
+about=Le fichier des adresses doit être ouvert dans Qgis. L'adresse doit être contenue dans une seule colonne (numero, rue, code postal, ville). Une fois la géolocalisation effectuée, une colonne "score" permet de connaitre la fiabilité de l'adresse, 1 étant la meilleure note (à partir de 0,5, la localisation est fiable).
 version=1.2
 author=CREASIG
-email=eric@creasig.fr
+email=contact@creasig.fr
 
 # End of mandatory metadata
 
@@ -25,8 +26,8 @@ email=eric@creasig.fr
 tags=
 
 homepage= http://creasig.fr
-tracker=http://github.com/CREASIG/QBANO
-repository=
+tracker=https://github.com/CREASIG/QBANO/issues
+repository=http://github.com/CREASIG/QBANO
 category=Plugins
 icon=icon.png
 # experimental flag
@@ -34,4 +35,3 @@ experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
-
