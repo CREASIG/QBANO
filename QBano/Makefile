@@ -1,12 +1,12 @@
 #/***************************************************************************
-# QPackage
+# QBano
 #
-# Port of builder to python3
+# a
 #							 -------------------
-#		begin				: 2017-10-04
+#		begin				: 2017-10-14
 #		git sha				: $Format:%H$
 #		copyright			: (C) 2017 by CREASIG
-#		email				: gsherman@geoapt.com
+#		email				: concact@creasig.fr
 # ***************************************************************************/
 #
 #/***************************************************************************
@@ -26,7 +26,7 @@
 #Add iso code for any locales you want to support here (space separated)
 # default is no locales
 # LOCALES = af
-LOCALES = fr
+LOCALES =
 
 # If locales are enabled, set the name of the lrelease binary on your system. If
 # you have trouble compiling the translations, you may have to specify the full path to
@@ -38,15 +38,15 @@ LOCALES = fr
 # translation
 SOURCES = \
 	__init__.py \
-	QPackage.py QPackage_dialog.py
+	QBano.py QBano_dialog.py
 
-PLUGINNAME = QPackage
+PLUGINNAME = QBano
 
 PY_FILES = \
 	__init__.py \
-	QPackage.py QPackage_dialog.py
+	QBano.py QBano_dialog.py
 
-UI_FILES = QPackage_dialog_base.ui
+UI_FILES = QBano_dialog_base.ui
 
 EXTRAS = metadata.txt icon.png
 
@@ -97,7 +97,7 @@ test: compile transcompile
 	@echo "e.g. source run-env-linux.sh <path to qgis install>; make test"
 	@echo "----------------------"
 
-deploy: compile  transcompile
+deploy: compile doc transcompile
 	@echo
 	@echo "------------------------------------------"
 	@echo "Deploying plugin to your .qgis2 directory."
@@ -200,7 +200,7 @@ doc:
 	@echo "------------------------------------"
 	@echo "Building documentation using sphinx."
 	@echo "------------------------------------"
-	
+	cd help; make html
 
 pylint:
 	@echo

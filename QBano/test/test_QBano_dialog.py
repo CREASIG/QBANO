@@ -8,26 +8,26 @@
 
 """
 
-__author__ = 'eric.creasig.fr'
-__date__ = '2015-07-09'
-__copyright__ = 'Copyright 2015, CREASIG'
+__author__ = 'concact@creasig.fr'
+__date__ = '2017-10-14'
+__copyright__ = 'Copyright 2017, CREASIG'
 
 import unittest
 
-from PyQt4.QtGui import QDialogButtonBox, QDialog
+from PyQt5.QtGui import QDialogButtonBox, QDialog
 
-from GeoLocalisation_dialog import GeoLocalisationDialog
+from QBano_dialog import QBanoDialog
 
 from utilities import get_qgis_app
 QGIS_APP = get_qgis_app()
 
 
-class GeoLocalisationDialogTest(unittest.TestCase):
+class QBanoDialogTest(unittest.TestCase):
     """Test dialog works."""
 
     def setUp(self):
         """Runs before each test."""
-        self.dialog = GeoLocalisationDialog(None)
+        self.dialog = QBanoDialog(None)
 
     def tearDown(self):
         """Runs after each test."""
@@ -49,7 +49,7 @@ class GeoLocalisationDialogTest(unittest.TestCase):
         self.assertEqual(result, QDialog.Rejected)
 
 if __name__ == "__main__":
-    suite = unittest.makeSuite(GeoLocalisationDialogTest)
+    suite = unittest.makeSuite(QBanoDialogTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
 

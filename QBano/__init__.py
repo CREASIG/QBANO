@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- QPackage
+ QBano
                                  A QGIS plugin
- Port of builder to python3
+ a
                              -------------------
-        begin                : 2017-10-04
+        begin                : 2017-10-14
         copyright            : (C) 2017 by CREASIG
-        email                : gsherman@geoapt.com
+        email                : concact@creasig.fr
         git sha              : $Format:%H$
  ***************************************************************************/
 
@@ -25,11 +25,11 @@
 
 # noinspection PyPep8Naming
 def classFactory(iface):  # pylint: disable=invalid-name
-    """Load QPackage class from file QPackage.
+    """Load QBano class from file QBano.
 
     :param iface: A QGIS interface instance.
     :type iface: QgsInterface
     """
     #
-    from .QPackage import QPackage
-    return QPackage(iface)
+    from .QBano import QBano
+    return QBano(iface)

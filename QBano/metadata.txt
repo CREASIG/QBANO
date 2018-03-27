@@ -7,15 +7,15 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=QPackage
+name=QBan(o)
 qgisMinimumVersion=3.0
 qgisMaximumVersion=3.99
-description=Qpackage is a tool to save both your QGIS project and data contained in the project to a new directory.
-version=1.4
+description=QBAN(O) permet de géolocaliser vos adresses issues d'un fichier excel ou CSV. Il se sert de la base BAN (Base Adresse Nationale).
+version=1.3
 author=CREASIG
 email=juliensanjose@hotmail.fr
 
-about=It allows to convert any GIS vector format towards the .shp only. You may also apply a new projection.
+about=Le fichier des adresses doit être ouvert dans Qgis. L'adresse doit être contenue dans une seule colonne (numero, rue, code postal, ville). Une fois la géolocalisation effectuée, une colonne "score" permet de connaitre la fiabilité de l'adresse, 1 étant la meilleure note (à partir de 0,5, la localisation est fiable).
 
 # End of mandatory metadata
 
@@ -27,10 +27,10 @@ about=It allows to convert any GIS vector format towards the .shp only. You may 
 # Tags are comma separated with spaces allowed
 tags=python
 
-homepage=http://creasig.fr
-tracker=http://plugins.qgis.org/plugins/QPackage
+homepage= http://creasig.fr
+tracker=https://github.com/CREASIG/QBANO/issues
+repository=http://github.com/CREASIG/QBANO
 category=Plugins
-repository=http://plugins.qgis.org/plugins/QPackage
 icon=icon.png
 # experimental flag
 experimental=False

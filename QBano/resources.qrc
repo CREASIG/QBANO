@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/plugins/QPackage" >
+    <qresource prefix="/plugins/QBano" >
         <file>icon.png</file>
     </qresource>
 </RCC>

@@ -3,12 +3,12 @@
 /***************************************************************************
  QBano
                                  A QGIS plugin
- QBano
+ a
                               -------------------
-        begin                : 2015-07-08
+        begin                : 2017-10-14
         git sha              : $Format:%H$
-        copyright            : (C) 2015 by CREASIG
-        email                : eric@creasig.com
+        copyright            : (C) 2017 by CREASIG
+        email                : concact@creasig.fr
  ***************************************************************************/
 
 /***************************************************************************
@@ -20,12 +20,14 @@
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
-from PyQt4.QtGui import QAction, QIcon
+from PyQt5.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QAction
+
 # Initialize Qt resources from file resources.py
-import resources_rc
+from .resources import *
 # Import the code for the dialog
-from QBano_dialog import QBanoDialog
+from .QBano_dialog import QBanoDialog
 import os.path
 
 
@@ -49,7 +51,7 @@ class QBano:
         locale_path = os.path.join(
             self.plugin_dir,
             'i18n',
-            '{}.qm'.format(locale))
+            'QBano_{}.qm'.format(locale))
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
@@ -63,10 +65,10 @@ class QBano:
 
         # Declare instance attributes
         self.actions = []
-        self.menu = self.tr(u'&QBAN(O)')
-        self.toolbar = self.iface.addToolBar(u'QBAN(O)')
-        self.toolbar.setObjectName(u'QBAN(O)')
-
+        self.menu = self.tr(u'&QBano')
+        # TODO: We are going to let the user set this up in a future iteration
+        self.toolbar = self.iface.addToolBar(u'QBano')
+        self.toolbar.setObjectName(u'QBano')
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -81,7 +83,7 @@ class QBano:
         :rtype: QString
         """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
-        return QCoreApplication.translate('QBAN(O)', message)
+        return QCoreApplication.translate('QBano', message)
 
 
     def add_action(
@@ -160,10 +162,10 @@ class QBano:
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
-        icon_path = ':/plugins/QBANO/icon.png'
+        icon_path = ':/plugins/QBano/icon.png'
         self.add_action(
             icon_path,
-            text=self.tr(u'QBAN(O)'),
+            text=self.tr(u''),
             callback=self.run,
             parent=self.iface.mainWindow())
 
@@ -172,7 +174,7 @@ class QBano:
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
             self.iface.removePluginMenu(
-                self.tr(u'&QBAN(O)'),
+                self.tr(u'&QBano'),
                 action)
             self.iface.removeToolBarIcon(action)
         # remove the toolbar

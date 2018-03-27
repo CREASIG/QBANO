@@ -21,36 +21,13 @@
  ***************************************************************************/
 """
 
-
+import os
 
 from PyQt5 import *
-from PyQt5 import QtCore
-from PyQt5 import QtGui
 from PyQt5 import QtWidgets
-from PyQt5 import uic
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-import os
-import codecs
-import unicodedata
-import io
-import urllib
-import simplejson as json
 
-from qgis.core import QgsCoordinateReferenceSystem
-from qgis.core import QgsMapLayer
-from qgis.core import QgsProject
-from qgis.core import QgsRasterFileWriter
-from qgis.core import QgsRasterLayer
-from qgis.core import QgsMessageLog
-from qgis.core import QgsVectorFileWriter
-from qgis.core import QgsVectorLayer
-from qgis.core import QgsField
-from qgis.core import QgsGeometry
-from qgis.core import QgsFeature
 from qgis.core import *
 
-from xml.dom.minidom import parse, parseString
 
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -68,24 +45,25 @@ class QBanoDialog(QtWidgets.QDialog, FORM_CLASS):
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
 
-    def chercherCouches(self):
-        self._listecouches.clear()
-        for name in QgsProject.instance().mapLayers():
-            layer = QgsProject.instance().mapLayer(name)
+	def chercherCouches(self):
+		self._listecouches.clear()
+		layers = QgsProject.instance().mapLayers()
+		for name in layers.iteritems():
+			layer = QgsProject.instance().mapLayer(nom)
 
-            self._listecouches.addItem(layer.name())
+			self._listecouches.addItem(name)
 
 
     def remplirChampAdresse(self, valeur):
         self._champadresse.clear()
-       
+        layers = QgsProject.instance().mapLayers()
         if valeur != None:
-            for name in QgsProject.instance().mapLayers():
-                layer = QgsProject.instance().mapLayer(name)
+            for name in layers.iteritems():
+					layer = QgsProject.instance().mapLayer(nom)
 
-                if layer.name() == valeur:
-                    for field in layer.fields():
-                        self._champadresse.addItem(field.name())
+               if name == valeur:
+               	for field in layer.pendingFields():
+                  	self._champadresse.addItem(field.name())
 
     def deboguer(self, texte):
         #logging.basicConfig(filename='myapp.log', level=logging.INFO)
@@ -96,11 +74,11 @@ class QBanoDialog(QtWidgets.QDialog, FORM_CLASS):
     def geocoder(self):
         champadresse = self._champadresse.currentText()
         champcouche = self._listecouches.currentText()
-        
-        for name in QgsProject.instance().mapLayers():
-            layer = QgsProject.instance().mapLayer(name)
+        layers = QgsProject.instance().mapLayers()
+        for name in layers.iteritems():
+        		layer = QgsProject.instance().mapLayer(nom)
 
-            if layer.name() == champcouche:
+            if name == champcouche:
                 selected_features = layer.getFeatures()
                 
                 #Creation de la couche
@@ -110,8 +88,8 @@ class QBanoDialog(QtWidgets.QDialog, FORM_CLASS):
                 # Enter editing mode
                 vl.startEditing()
                 titre=[];
-                for att in layer.fields():
-                    titre.append( QgsField((att.name()), QVariant.String))
+                for att in layer.pendingAllAttributesList():
+                    titre.append( QgsField(layer.attributeDisplayName(att), QVariant.String))
                 titre.append( QgsField("adresse_trouvee", QVariant.String))
                 titre.append( QgsField("score", QVariant.String))
                 titre.append( QgsField("type", QVariant.String))
@@ -131,7 +109,7 @@ class QBanoDialog(QtWidgets.QDialog, FORM_CLASS):
                     j=j+1;
                     self.deboguer(j)
                     self._progression.setValue(j)
-                    QtWidgets.qApp.processEvents()
+                    QtGui.qApp.processEvents()
                     self.deboguer("1")
                     coordonnees={}
                     coordonnees["adresse"] = ''
@@ -153,13 +131,11 @@ class QBanoDialog(QtWidgets.QDialog, FORM_CLASS):
                         coordonnees = self.coordonnees(adresse_complete)
                     fet = QgsFeature()
                     if coordonnees != {}:
-                        fet.setGeometry( QgsGeometry.fromPointXY(QgsPointXY (coordonnees['lon'],coordonnees['lat']))) 
+                        fet.setGeometry( QgsGeometry.fromPoint(QgsPoint(coordonnees['lon'],coordonnees['lat']))) 
 
                     attributs = []
-                    numero = 0
-                    for att in layer.fields():
-                        attributs.append(i.attribute(layer.attributeDisplayName(numero)))
-                        numero=numero+1
+                    for att in layer.pendingAllAttributesList():
+                        attributs.append(i.attribute(layer.attributeDisplayName(att)))
                     if coordonnees != {}:
                         attributs.append(coordonnees['adresse'])
                         attributs.append(str(coordonnees['score']))
@@ -178,9 +154,8 @@ class QBanoDialog(QtWidgets.QDialog, FORM_CLASS):
         try:
             param = {'wt':'json','rows':2,'fl':'score,*'}
             param['q']=unicodedata.normalize('NFD',adresse).encode('ascii','ignore')
-            url = urllib.parse.urlencode(param)
-            response = urllib.request.urlopen('http://api-adresse.data.gouv.fr/search/?' + url+'&limit=1')
-            donnee = io.TextIOWrapper(response)
+            url = urllib.urlencode(param)
+            donnee = urllib2.urlopen('http://api-adresse.data.gouv.fr/search/?' + url+'&limit=1')
             # self.deboguer(donnee)
             data = json.load(donnee)
             # self.deboguer(data)

@@ -8,17 +8,17 @@
 
 """
 
-__author__ = 'eric.creasig.fr'
-__date__ = '2015-07-09'
-__copyright__ = 'Copyright 2015, CREASIG'
+__author__ = 'concact@creasig.fr'
+__date__ = '2017-10-14'
+__copyright__ = 'Copyright 2017, CREASIG'
 
 import unittest
 
-from PyQt4.QtGui import QIcon
+from PyQt5.QtGui import QIcon
 
 
 
-class GeoLocalisationDialogTest(unittest.TestCase):
+class QBanoDialogTest(unittest.TestCase):
     """Test rerources work."""
 
     def setUp(self):
@@ -31,12 +31,12 @@ class GeoLocalisationDialogTest(unittest.TestCase):
 
     def test_icon_png(self):
         """Test we can click OK."""
-        path = ':/plugins/GeoLocalisation/icon.png'
+        path = ':/plugins/QBano/icon.png'
         icon = QIcon(path)
         self.assertFalse(icon.isNull())
 
 if __name__ == "__main__":
-    suite = unittest.makeSuite(GeoLocalisationResourcesTest)
+    suite = unittest.makeSuite(QBanoResourcesTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
 
