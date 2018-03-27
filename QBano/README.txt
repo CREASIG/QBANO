@@ -1,10 +1,10 @@
 Plugin Builder Results
 
-Your plugin GeoLocalisation was created in:
-    /home/eric/GeoLocalisation/GeoLocalisation
+Your plugin QPackage was created in:
+    /home/eric/.local/share/QGIS/QGIS3/profiles/default/python/QPackage
 
 Your QGIS plugin directory is located at:
-    /home/eric/.qgis2/python/plugins
+    /home/eric/.local/share/QGIS/QGIS3/profiles/defaultpython/plugins
 
 What's Next:
 
@@ -17,11 +17,11 @@ What's Next:
 
   * Test the plugin by enabling it in the QGIS plugin manager
 
-  * Customize it by editing the implementation file: ``GeoLocalisation.py``
+  * Customize it by editing the implementation file: ``QPackage.py``
 
   * Create your own custom icon, replacing the default icon.png
 
-  * Modify your user interface by opening GeoLocalisation.ui in Qt Designer
+  * Modify your user interface by opening QPackage.ui in Qt Designer
 
   * You can use the Makefile to compile your Ui and resource files when
     you make changes. This requires GNU make (gmake)
