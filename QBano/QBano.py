@@ -23,14 +23,13 @@
 from PyQt5.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction
-from qgis.core import QgsApplication
 
 # Initialize Qt resources from file resources.py
 from .resources import *
 # Import the code for the dialog
 from .QBano_dialog import QBanoDialog
 import os.path
-from .QBano_provider import QBanoProvider
+
 
 class QBano:
     """QGIS Plugin Implementation."""
@@ -43,7 +42,6 @@ class QBano:
             application at run time.
         :type iface: QgsInterface
         """
-        self.provider = QBanoProvider()
         # Save reference to the QGIS interface
         self.iface = iface
         # initialize plugin directory
@@ -171,7 +169,6 @@ class QBano:
             callback=self.run,
             parent=self.iface.mainWindow())
 
-        QgsApplication.processingRegistry().addProvider(self.provider)
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
@@ -182,7 +179,7 @@ class QBano:
             self.iface.removeToolBarIcon(action)
         # remove the toolbar
         del self.toolbar
-        QgsApplication.processingRegistry().removeProvider(self.provider)
+
 
     def run(self):
         """Run method that performs all the real work"""

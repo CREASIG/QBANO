@@ -16,7 +16,7 @@ done
 
 # Qt translation stuff
 # for .ts file
-UPDATE=false
+UPDATE=true
 for LOCALE in ${LOCALES}
 do
   TRANSLATION_FILE="i18n/$LOCALE.ts"
@@ -40,7 +40,7 @@ done
 if [ ${UPDATE} == true ]
 # retrieve all python files
 then
-  print ${PYTHON_FILES}
+  #print ${PYTHON_FILES}
   # update .ts
   echo "Please provide translations by editing the translation files below:"
   for LOCALE in ${LOCALES}
@@ -48,7 +48,7 @@ then
     echo "i18n/"${LOCALE}".ts"
     # Note we don't use pylupdate with qt .pro file approach as it is flakey
     # about what is made available.
-    pylupdate4 -noobsolete ${PYTHON_FILES} -ts i18n/${LOCALE}.ts
+    pylupdate5 -noobsolete ${PYTHON_FILES} -ts i18n/${LOCALE}.ts
   done
 else
   echo "No need to edit any translation files (.ts) because no python files"
