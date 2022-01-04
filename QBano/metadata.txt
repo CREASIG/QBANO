@@ -11,7 +11,7 @@ name=QBan(o)
 qgisMinimumVersion=3.0
 qgisMaximumVersion=3.99
 description=QBAN(O) permet de géolocaliser vos adresses issues d'un fichier excel ou CSV. Il se sert de la base BAN (Base Adresse Nationale).
-version=1.3
+version=1.7
 author=CREASIG
 email=juliensanjose@hotmail.fr
 
@@ -22,7 +22,7 @@ about=Le fichier des adresses doit être ouvert dans Qgis. L'adresse doit être 
 # Recommended items:
 
 # Uncomment the following line and add your changelog:
-# changelog=
+changelog=Mise à jour de Thomas Gratier (http://webgeodatavore.com) + bug de conversion
 
 # Tags are comma separated with spaces allowed
 tags=python

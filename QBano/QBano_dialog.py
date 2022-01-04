@@ -78,24 +78,38 @@ class QBanoDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def remplirChampAdresse(self, valeur):
         self._champadresse.clear()
+        self._champcp.clear()
+        self._champinsee.clear()
+        self._champville.clear()
        
         if valeur != None:
             for name in QgsProject.instance().mapLayers():
                 layer = QgsProject.instance().mapLayer(name)
 
                 if layer.name() == valeur:
+                    self._champcp.addItem("")
+                    self._champinsee.addItem("")
+                    self._champville.addItem("")
                     for field in layer.fields():
                         self._champadresse.addItem(field.name())
+                        self._champcp.addItem(field.name())
+                        self._champinsee.addItem(field.name())
+                        self._champville.addItem(field.name())
 
     def deboguer(self, texte):
         #logging.basicConfig(filename='myapp.log', level=logging.INFO)
         #logging.info(texte)
+        
+        QgsMessageLog.logMessage( str(texte), tag='QBano', level=Qgis.Info)
         pass
       
 
     def geocoder(self):
         champadresse = self._champadresse.currentText()
         champcouche = self._listecouches.currentText()
+        champcp = self._champcp.currentText()
+        champinsee = self._champinsee.currentText()
+        champcity = self._champville.currentText()
         
         for name in QgsProject.instance().mapLayers():
             layer = QgsProject.instance().mapLayer(name)
@@ -129,28 +143,41 @@ class QBanoDialog(QtWidgets.QDialog, FORM_CLASS):
                 j=0
                 for i in selected_features:
                     j=j+1;
-                    self.deboguer(j)
                     self._progression.setValue(j)
                     QtWidgets.qApp.processEvents()
-                    self.deboguer("1")
                     coordonnees={}
                     coordonnees["adresse"] = ''
                     coordonnees["lon"] = 0
                     coordonnees["lat"] = 0
                     coordonnees["score"] = 0
                     coordonnees["type"] = 'empty'
-                    if i.attribute(champadresse) is not None and i.attribute(champadresse) and isinstance(i.attribute(champadresse), unicode) :
-                        self.deboguer(i.attribute(champadresse))
+                    if champadresse and i.attribute(champadresse) is not None and i.attribute(champadresse) and isinstance(i.attribute(champadresse), unicode) :
+                        cp=""
+                        city=""
+                        insee=""
+                        #self.deboguer(champcp)
+                        if champcp and i.attribute(champcp) is not None and i.attribute(champcp) :
+                            cp=i.attribute(champcp)
+                            if isinstance(cp,float):
+                                cp=int(cp)
+                            #self.deboguer(str(round(cp,0)))
+                            #self.deboguer(cp)
+                        if champcity and i.attribute(champcity) is not None and i.attribute(champcity) :
+                            city=i.attribute(champcity)
+                            if isinstance(city,float):
+                                city=int(city)
+                        if champinsee and i.attribute(champinsee) is not None and i.attribute(champinsee) :
+                            insee=i.attribute(champinsee)
+                            if isinstance(insee,float):
+                                insee=int(insee)
+                        #self.deboguer(i.attribute(champadresse))
                         adresse_complete = i.attribute(champadresse)
-                        adresse_complete.replace("\""," ")
-                        adresse_complete.replace("'"," ")
-                        adresse_complete.replace("\\"," ")
-                        adresse_complete.replace("."," ")
-                        adresse_complete.replace(","," ")
-                        adresse_complete.replace(":"," ")
-                        adresse_complete.replace(";"," ")
-                        self.deboguer(adresse_complete)
-                        coordonnees = self.coordonnees(adresse_complete)
+                        adresse_complete = self.nettoyer(adresse_complete)
+                        cp = self.nettoyer(cp)
+                        insee = self.nettoyer(insee)
+                        city = self.nettoyer(city)
+                        #self.deboguer(adresse_complete)
+                        coordonnees = self.coordonnees(adresse_complete, cp,insee,  city)
                     fet = QgsFeature()
                     if coordonnees != {}:
                         fet.setGeometry( QgsGeometry.fromPointXY(QgsPointXY (coordonnees['lon'],coordonnees['lat']))) 
@@ -172,16 +199,24 @@ class QBanoDialog(QtWidgets.QDialog, FORM_CLASS):
                 
                 QgsProject.instance().addMapLayer(vl)     
 
-    def coordonnees(self,adresse):
+    def coordonnees(self,adresse, cp,insee,  city):
 
         retour = {}
         try:
             param = {'wt':'json','rows':2,'fl':'score,*'}
             param['q']=unicodedata.normalize('NFD',adresse).encode('ascii','ignore')
+            #self.deboguer(cp)
+            if cp != "":
+                param['postcode']=cp
+            if insee != "":
+                param['citycode']=insee
+            if city != "":
+                param['city']=city
+                
             url = urllib.parse.urlencode(param)
-            response = urllib.request.urlopen('http://api-adresse.data.gouv.fr/search/?' + url+'&limit=1')
+            response = urllib.request.urlopen('https://api-adresse.data.gouv.fr/search/?' + url+'&limit=1')
             donnee = io.TextIOWrapper(response)
-            # self.deboguer(donnee)
+            #self.deboguer('https://api-adresse.data.gouv.fr/search/?' + url+'&limit=1')
             data = json.load(donnee)
             # self.deboguer(data)
             if len(data['features']) > 0 :
@@ -190,10 +225,23 @@ class QBanoDialog(QtWidgets.QDialog, FORM_CLASS):
                 retour["lat"] = data['features'][0]['geometry']['coordinates'][1]
                 retour["score"] = data['features'][0]['properties']['score']
                 retour["type"] = data['features'][0]['properties']['type']
-        except  urllib2.HTTPError as e:
+        except  urllib.error.HTTPError as e:
             QMessageBox.critical(self, QtGui.QApplication.translate("QBAN(O)", "QBAN(O)"), QtGui.QApplication.translate("Internetconnexionerror", "Internet connexion error"), QMessageBox.Ok)
             retour = {}
-        except  urllib2.URLError as e:
+        except  urllib.error.URLError as e:
             QMessageBox.critical(self, QtGui.QApplication.translate("QBAN(O)", "QBAN(O)"), QtGui.QApplication.translate("Internetconnexionerror", "Internet connexion error"), QMessageBox.Ok)
             retour = {}
         return retour
+
+    def nettoyer(self, texte):
+        texte=str(texte)
+        texte.replace("\""," ")
+        texte.replace("'"," ")
+        texte.replace("\\"," ")
+        texte.replace("."," ")
+        texte.replace(","," ")
+        texte.replace(":"," ")
+        texte.replace(";"," ")
+        texte.replace(".0","")
+        return texte
+        
